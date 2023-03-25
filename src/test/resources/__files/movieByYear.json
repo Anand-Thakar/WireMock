@@ -1,0 +1,16 @@
+[
+  {
+    "movie_id": 1,
+    "name": "Batman Begins",
+    "year": "{{request.query.year}}",
+    "cast": "Christian Bale, Katie Holmes , Liam Neeson",
+    "release_date": "2005-06-15"
+  },
+  {
+    "movie_id": 2,
+    "name": "Dark Knight",
+    "year": "{{request.query.year}}",
+    "cast": "Christian Bale, Heath Ledger , Michael Caine",
+    "release_date": "2005-07-18"
+  }
+]
