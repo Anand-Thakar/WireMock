@@ -4,7 +4,13 @@ import com.example.learningwiremock.constants.MovieConstants;
 import com.example.learningwiremock.exception.MovieNotCreated;
 import com.example.learningwiremock.exception.MovieNotFoundException;
 import com.example.learningwiremock.model.Movie;
+import com.github.jenspiegsa.wiremockextension.ConfigureWireMock;
+import com.github.jenspiegsa.wiremockextension.InjectServer;
+import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.client.WireMock;
+import com.github.tomakehurst.wiremock.common.ConsoleNotifier;
+import com.github.tomakehurst.wiremock.core.Options;
+import com.github.tomakehurst.wiremock.extension.responsetemplating.ResponseTemplateTransformer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +27,7 @@ import java.util.List;
 
 import static com.example.learningwiremock.constants.MovieConstants.*;
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
+import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -34,10 +41,14 @@ public class MovieRestClientTest {
     @Autowired
     MovieRestClient movieRestClient;
 
-//    static WireMockServer wm = new WireMockServer(options()
-//            .notifier(new ConsoleNotifier(true)));
-
-
+//    @InjectServer
+//    WireMockServer wireMockServer;
+//
+//    @ConfigureWireMock
+//    Options options = wireMockConfig().
+//            port(8090)
+//            .notifier(new ConsoleNotifier(true))
+//            .extensions(new ResponseTemplateTransformer(true));
 
     @Test
     void getAllMovies_any_url() throws MovieNotFoundException {

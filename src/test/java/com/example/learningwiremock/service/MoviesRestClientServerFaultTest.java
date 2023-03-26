@@ -145,9 +145,7 @@ public class MoviesRestClientServerFaultTest {
                 .willReturn(WireMock.aResponse()
                         .withStatus(HttpStatus.OK.value())
                         .withHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)));
-
-
-        String s = movieRestClient.deleteMovieByName(movie1.getName());
-        System.out.println(s);
+        String actualResponse = movieRestClient.deleteMovieByName(movie1.getName());
+        assertEquals(expectedResponse,actualResponse);
     }
 }

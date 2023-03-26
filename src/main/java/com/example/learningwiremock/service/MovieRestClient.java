@@ -15,16 +15,12 @@ import java.util.stream.Collectors;
 @Slf4j
 @Component
 public class MovieRestClient {
-
-
     private WebClient webClient;
-
-
     public MovieRestClient(WebClient webClient) {
         this.webClient = webClient;
     }
 
-    //http://localhost:8081/movieservice/v1/allMovies
+
     public List<Movie> getAllMovies() throws MovieNotFoundException {
        try {List<Movie> block = webClient.get()
                .uri(MovieConstants.GET_ALL_MOVIES)
