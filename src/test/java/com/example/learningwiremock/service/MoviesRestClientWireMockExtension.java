@@ -10,7 +10,7 @@ import com.github.tomakehurst.wiremock.client.WireMock;
 import com.github.tomakehurst.wiremock.common.ConsoleNotifier;
 import com.github.tomakehurst.wiremock.core.Options;
 import com.github.tomakehurst.wiremock.extension.responsetemplating.ResponseTemplateTransformer;
-import com.github.tomakehurst.wiremock.junit5.WireMockExtension;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-
+import com.github.jenspiegsa.wiremockextension.WireMockExtension;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -29,7 +29,8 @@ import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-
+import com.github.jenspiegsa.wiremockextension.WireMockExtension;
+//import com.github.tomakehurst.wiremock.junit5.WireMockExtension;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 @TestPropertySource(properties = {"moviesapp.baseUrl=http://localhost:8091"})
@@ -42,13 +43,12 @@ public class MoviesRestClientWireMockExtension {
 
     @ConfigureWireMock
     Options options = wireMockConfig().
-            port(9091)
+            port(8091)
             .notifier(new ConsoleNotifier(true))
             .extensions(new ResponseTemplateTransformer(true));
 
     @Autowired
     MovieRestClient movieRestClient;
-
     @Test
     void getAllMovies_any_url() throws MovieNotFoundException {
 
@@ -65,8 +65,9 @@ public class MoviesRestClientWireMockExtension {
 
         //then return data from our file
         assertTrue(movieList.size() > 0);
-    }
 
+
+    }
     @Test
     void deleteMovie_createMovieAndThenDelete_dynamic() throws MovieNotCreated {
         stubFor(post(CREATE_MOVIE)
@@ -92,7 +93,4 @@ public class MoviesRestClientWireMockExtension {
         String deleteResponse = movieRestClient.deleteMovie(movie1.getMovie_id().intValue());
         assertEquals(expectedResponse, deleteResponse);
     }
-
-
-
 }

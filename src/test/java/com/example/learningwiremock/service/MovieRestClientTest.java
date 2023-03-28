@@ -6,6 +6,7 @@ import com.example.learningwiremock.exception.MovieNotFoundException;
 import com.example.learningwiremock.model.Movie;
 import com.github.jenspiegsa.wiremockextension.ConfigureWireMock;
 import com.github.jenspiegsa.wiremockextension.InjectServer;
+import com.github.jenspiegsa.wiremockextension.WireMockExtension;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.client.WireMock;
 import com.github.tomakehurst.wiremock.common.ConsoleNotifier;
@@ -15,7 +16,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -35,20 +35,20 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-@AutoConfigureWireMock(port = 8090)
-@TestPropertySource(properties = {"moviesapp.baseUrl=http://localhost:8090"})
+@TestPropertySource(properties = {"moviesapp.baseUrl=http://localhost:8091"})
+@ExtendWith(WireMockExtension.class)
 public class MovieRestClientTest {
     @Autowired
     MovieRestClient movieRestClient;
 
-//    @InjectServer
-//    WireMockServer wireMockServer;
-//
-//    @ConfigureWireMock
-//    Options options = wireMockConfig().
-//            port(8090)
-//            .notifier(new ConsoleNotifier(true))
-//            .extensions(new ResponseTemplateTransformer(true));
+    @InjectServer
+    WireMockServer wireMockServer;
+
+    @ConfigureWireMock
+    Options options = wireMockConfig().
+            port(8091)
+            .notifier(new ConsoleNotifier(true))
+            .extensions(new ResponseTemplateTransformer(true));
 
     @Test
     void getAllMovies_any_url() throws MovieNotFoundException {
