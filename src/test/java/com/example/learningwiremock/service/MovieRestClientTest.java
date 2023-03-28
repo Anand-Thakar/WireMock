@@ -41,14 +41,14 @@ public class MovieRestClientTest {
     @Autowired
     MovieRestClient movieRestClient;
 
-//    @InjectServer
-//    WireMockServer wireMockServer;
-//
-//    @ConfigureWireMock
-//    Options options = wireMockConfig().
-//            port(8090)
-//            .notifier(new ConsoleNotifier(true))
-//            .extensions(new ResponseTemplateTransformer(true));
+    @InjectServer
+    WireMockServer wireMockServer;
+
+    @ConfigureWireMock
+    Options options = wireMockConfig().
+            port(8090)
+            .notifier(new ConsoleNotifier(true))
+            .extensions(new ResponseTemplateTransformer(true));
 
     @Test
     void getAllMovies_any_url() throws MovieNotFoundException {

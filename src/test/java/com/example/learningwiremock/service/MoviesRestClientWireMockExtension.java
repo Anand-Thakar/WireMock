@@ -10,7 +10,7 @@ import com.github.tomakehurst.wiremock.client.WireMock;
 import com.github.tomakehurst.wiremock.common.ConsoleNotifier;
 import com.github.tomakehurst.wiremock.core.Options;
 import com.github.tomakehurst.wiremock.extension.responsetemplating.ResponseTemplateTransformer;
-import com.github.tomakehurst.wiremock.junit5.WireMockExtension;
+import com.github.jenspiegsa.wiremockextension.WireMockExtension;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +42,7 @@ public class MoviesRestClientWireMockExtension {
 
     @ConfigureWireMock
     Options options = wireMockConfig().
-            port(9091)
+            port(8091)
             .notifier(new ConsoleNotifier(true))
             .extensions(new ResponseTemplateTransformer(true));
 
